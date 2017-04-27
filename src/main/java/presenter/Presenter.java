@@ -1,5 +1,5 @@
-package controller;
+package presenter;
 
 
-public class Controller {
+public class Presenter{
 }
