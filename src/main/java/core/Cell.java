@@ -2,7 +2,7 @@ package core;
 
 public class Cell {
     private enum State {
-        DEAD,
+        EMPTY,
         WIRE,
         ELECTRONHEAD,
         ELECTRONTAIL
@@ -11,6 +11,11 @@ public class Cell {
     private State state;
     private int neighboursCount;
 
+
+    public Cell() {
+        this.state = State.EMPTY;
+        setNeighboursCount(0);
+    }
 
     public Cell(State state) {
         this.state = state;
@@ -46,5 +51,13 @@ public class Cell {
         int result = state != null ? state.hashCode() : 0;
         result = 31 * result + neighboursCount;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Cell{" +
+                "state=" + state +
+                ", neighboursCount=" + neighboursCount +
+                '}';
     }
 }
