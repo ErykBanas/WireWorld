@@ -1,0 +1,6 @@
+{
+  "GridSize":
+  {"x":60, "y":40},
+  "AnimationSpeed":1000,
+  "NumberOfGenerations":100
+}
