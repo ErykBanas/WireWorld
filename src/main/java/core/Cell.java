@@ -1,7 +1,7 @@
 package core;
 
 public class Cell {
-    private enum State {
+    public enum State {
         EMPTY,
         WIRE,
         ELECTRONHEAD,
@@ -9,7 +9,7 @@ public class Cell {
     }
 
     private State state;
-    private int neighboursCount;
+    private int neighboursNumber;
 
 
     public Cell() {
@@ -31,11 +31,11 @@ public class Cell {
     }
 
     public int getNeighboursCount() {
-        return neighboursCount;
+        return neighboursNumber;
     }
 
     public void setNeighboursCount(int neighboursCount) {
-        this.neighboursCount = neighboursCount;
+        this.neighboursNumber = neighboursCount;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class Cell {
     @Override
     public int hashCode() {
         int result = state != null ? state.hashCode() : 0;
-        result = 31 * result + neighboursCount;
+        result = 31 * result + neighboursNumber;
         return result;
     }
 
@@ -57,7 +57,7 @@ public class Cell {
     public String toString() {
         return "Cell{" +
                 "state=" + state +
-                ", neighboursCount=" + neighboursCount +
+                ", neighboursCount=" + neighboursNumber +
                 '}';
     }
 }
