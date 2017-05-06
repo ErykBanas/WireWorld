@@ -14,28 +14,26 @@ public class Cell {
 
     public Cell() {
         this.state = State.EMPTY;
-        setNeighboursCount(0);
+        setNeighboursNumber(0);
     }
 
     public Cell(State state) {
         this.state = state;
-        setNeighboursCount(0);
+        setNeighboursNumber(0);
     }
 
     public State getState() {
         return state;
     }
-
     public void setState(State state) {
         this.state = state;
     }
 
-    public int getNeighboursCount() {
+    public int getNeighboursNumber() {
         return neighboursNumber;
     }
-
-    public void setNeighboursCount(int neighboursCount) {
-        this.neighboursNumber = neighboursCount;
+    public void setNeighboursNumber(int neighboursNumber) {
+        this.neighboursNumber = neighboursNumber ;
     }
 
     @Override
