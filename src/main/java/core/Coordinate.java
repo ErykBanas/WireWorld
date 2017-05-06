@@ -1,27 +1,27 @@
 package core;
 
 public class Coordinate {
-    private int x;
-    private int y;
+    private long x;
+    private long y;
 
-    public Coordinate(int x, int y) {
+    public Coordinate(long x, long y) {
         this.x = x;
         this.y = y;
     }
 
-    public int getX() {
+    public long getX() {
         return x;
     }
 
-    public int getY() {
+    public long getY() {
         return y;
     }
 
-    public void setX(int x) {
+    public void setX(long x) {
         this.x = x;
     }
 
-    public void setY(int y) {
+    public void setY(long y) {
         this.y = y;
     }
 
@@ -38,8 +38,8 @@ public class Coordinate {
 
     @Override
     public int hashCode() {
-        int result = x;
-        result = 31 * result + y;
+        int result = (int) (x ^ (x >>> 32));
+        result = 31 * result + (int) (y ^ (y >>> 32));
         return result;
     }
 
