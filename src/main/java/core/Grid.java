@@ -6,48 +6,47 @@ import java.util.Map;
 
 public class Grid {
 
-    private HashMap <Coordinate,Cell> grid;
+    private HashMap <Coordinate,Cell> hm;
+
 
     public Grid(){
-        this.grid = new HashMap<Coordinate, Cell>();
+        this.hm = new HashMap<Coordinate, Cell>();
     }
+    
     public Grid(HashMap<Coordinate, Cell> grid) {
-        this.grid = grid;
-
+        this.hm = grid;
     }
 
-    public HashMap<Coordinate, Cell> getGrid() {
-        return grid;
+    public HashMap<Coordinate, Cell> getHashMap() {
+        return hm;
     }
 
-    public void setGrid(HashMap<Coordinate, Cell> grid) {
-        this.grid = grid;
+    public void setHashMap(HashMap<Coordinate, Cell> grid) {
+        this.hm = grid;
     }
-
 
     public void insertNewCell(int x, int y, Cell.State state){
-        this.grid.put(new Coordinate(x,y), new Cell(state));
+        this.hm.put(new Coordinate(x,y), new Cell(state));
     }
 
     public void setCellState(int x, int y, Cell.State state) throws Exception {
         Coordinate coord = new Coordinate(x,y);
-        if (this.grid.containsKey(coord)){
-            grid.get(coord).setState(state);
+        if (this.hm.containsKey(coord)){
+            hm.get(coord).setState(state);
         }
         else throw new Exception();
     }
 
-    public Cell.State getCellState(int x, int y){
+    public Cell.State getCellState(long x, long y){
         Coordinate coord = new Coordinate(x,y);
-        if (this.grid.containsKey(coord)){
-            return grid.get(coord).getState();
+        if (this.hm.containsKey(coord)){
+            return hm.get(coord).getState();
         }
         else return Cell.State.EMPTY;
-
     }
 
     public void countNeighbours(){
-        for (Map.Entry<Coordinate,Cell> entry: grid.entrySet()){
+        for (Map.Entry<Coordinate,Cell> entry: hm.entrySet()){
             int counter = 0;
             Coordinate coord;
             coord = entry.getKey();
@@ -63,7 +62,7 @@ public class Grid {
                 if (getCellState(coord.getX(), coord.getY() + 1) == Cell.State.ELECTRONHEAD) counter++;
                 if (getCellState(coord.getX() - 1, coord.getY() + 1) == Cell.State.ELECTRONHEAD) counter++;
                 cell.setNeighboursCount(counter);
-                grid.put(coord,cell);
+                hm.put(coord,cell);
             }
         }
     }
@@ -75,11 +74,11 @@ public class Grid {
 
         Grid grid1 = (Grid) o;
 
-        return grid != null ? grid.equals(grid1.grid) : grid1.grid == null;
+        return hm != null ? hm.equals(grid1.hm) : grid1.hm == null;
     }
 
     @Override
     public int hashCode() {
-        return grid != null ? grid.hashCode() : 0;
+        return hm != null ? hm.hashCode() : 0;
     }
 }
