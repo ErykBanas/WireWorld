@@ -61,7 +61,7 @@ public class Grid {
                 if (getCellState(coord.getX() + 1, coord.getY() + 1) == Cell.State.ELECTRONHEAD) counter++;
                 if (getCellState(coord.getX(), coord.getY() + 1) == Cell.State.ELECTRONHEAD) counter++;
                 if (getCellState(coord.getX() - 1, coord.getY() + 1) == Cell.State.ELECTRONHEAD) counter++;
-                cell.setNeighboursCount(counter);
+                cell.setNeighboursNumber(counter);
                 hm.put(coord,cell);
             }
         }

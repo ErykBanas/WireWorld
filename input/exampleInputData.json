@@ -1,5 +1,4 @@
 {
-  "WireWorld": {
     "WireCell": [
       {
         "x": 1,
@@ -40,5 +39,4 @@
         "startY": 3
       }
     ]
-  }
 }
