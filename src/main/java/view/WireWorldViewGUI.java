@@ -30,6 +30,10 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
     JPanel gridPanel;
     JPanel buttonsPanel;
 
+    private final int rowsNumber = 20;
+    private final int columnsNumber = 30;
+
+
 
     public WireWorldViewGUI(){
 
@@ -106,7 +110,7 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
         container.setLayout(null);
 
         //GRID PANEL
-        gridPanel = new WorldGridPanel();
+        gridPanel = new WorldGridPanel(rowsNumber,columnsNumber);
         gridPanel.setBounds(0,0,1000,600);
 
         container.add(gridPanel);
