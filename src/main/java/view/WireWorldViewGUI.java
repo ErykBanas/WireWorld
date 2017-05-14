@@ -68,8 +68,8 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
         optionsMenuItem.addActionListener(this);
         fileMenu.add(optionsMenuItem);
 
-        separator1 = new JPopupMenu.Separator();
-        fileMenu.add(separator1);
+        separator2 = new JPopupMenu.Separator();
+        fileMenu.add(separator2);
 
         exitMenuItem = new JMenuItem("Wyjście");
         exitMenuItem.addActionListener(this);
