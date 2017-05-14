@@ -33,6 +33,8 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
     private final int rowsNumber = 20;
     private final int columnsNumber = 30;
 
+    Presenter presenter;
+
 
 
     public WireWorldViewGUI(){
@@ -133,11 +135,11 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
     }
 
     public void setPresenter(Presenter presenter) {
-
+        this.presenter = presenter;
     }
 
     public Presenter getPresenter() {
-        return null;
+        return presenter;
     }
 
     public void drawGrid() {
