@@ -21,15 +21,28 @@ public class WorldCellLabel extends JLabel{
         this.y = y;
     }
 
+
     public void updateCellColor(Cell.State state) {
         //this.state = state;
 
         switch (state){
-            case ELECTRONHEAD:setBackground(Color.RED);
-            case ELECTRONTAIL:setBackground(Color.yellow);
-            case WIRE:setBackground(Color.BLACK);
-            case EMPTY:setBackground(Color.white);
-            default:setBackground(Color.white);
+            case ELECTRONHEAD:{
+                setBackground(Color.RED);
+                break;
+            }
+            case ELECTRONTAIL:{
+                setBackground(Color.yellow);
+                break;
+            }
+            case WIRE: {
+                setBackground(Color.BLACK);
+                break;
+            }
+            case EMPTY:{
+                setBackground(Color.white);
+                break;
+            }
+            default: setBackground(Color.CYAN); //Change to WHITE
         }
     }
 
