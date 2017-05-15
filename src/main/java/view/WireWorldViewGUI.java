@@ -1,6 +1,7 @@
 package view;
 
 
+import core.Cell;
 import presenter.Presenter;
 
 import javax.swing.*;
@@ -27,11 +28,12 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
     private JMenuItem aboutMenuItem;
 
     Container container;
-    JPanel gridPanel;
+    WorldGridPanel gridPanel;
     JPanel buttonsPanel;
 
     private final int rowsNumber = 20;
     private final int columnsNumber = 30;
+    private final int preferredCellLabelSize = 10;
 
     Presenter presenter;
 
@@ -112,7 +114,7 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
         container.setLayout(null);
 
         //GRID PANEL
-        gridPanel = new WorldGridPanel(rowsNumber,columnsNumber);
+        gridPanel = new WorldGridPanel(rowsNumber,columnsNumber, preferredCellLabelSize);
         gridPanel.setBounds(0,0,1000,600);
 
         container.add(gridPanel);
@@ -120,6 +122,7 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
         //BUTTONS PANEL
         buttonsPanel = new JPanel();
 
+        //todo dodać przyciski startu, pauzy i stopu
 
         //FRAME
         setSize(1500,1000);
@@ -144,6 +147,10 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
 
     public void drawGrid() {
 
+    }
+
+    public void updateCellLabelColor(int x, int y, Cell.State state){
+        gridPanel.getCellLabel(x,y).updateCellColor(state);
     }
 
     public void actionPerformed(ActionEvent e) {
