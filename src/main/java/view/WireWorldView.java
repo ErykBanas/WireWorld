@@ -1,5 +1,6 @@
 package view;
 
+import core.Cell;
 import presenter.Presenter;
 
 public interface WireWorldView {
@@ -10,5 +11,6 @@ public interface WireWorldView {
     Presenter getPresenter();
     void drawGrid();
     //void showMessage();
+    void updateCellLabelColor(int x, int y, Cell.State state);
 
 }
