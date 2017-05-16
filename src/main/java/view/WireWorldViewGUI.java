@@ -194,26 +194,26 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
 
         if (this.startButton.equals(source) || this.startMenuItem.equals(source)) {
             this.started = true;
-            presenter.startAnimation();
+            presenter.animationStarted();
         } else if (this.pauseButton.equals(source) || this.pauseMenuItem.equals(source)) {
             this.started = false;
-            presenter.pauseAnimation();
+            presenter.animationPaused();
         } else if (this.stopButton.equals(source) || this.stopMenuItem.equals(source)) {
             this.stopped = true;
-            presenter.stopAnimation();
+            presenter.animationStopped();
         } else if (this.openGenerationMenuItem.equals(source)){
-            presenter.openGeneration();
+            presenter.clickedOpenGeneration();
         } else if (this.saveGenerationMenuItem.equals(source)){
             System.out.println("Open");
-            presenter.saveGeneration();
+            presenter.clickedSaveGeneration();
         } else if (this.optionsMenuItem.equals(source)){
-            presenter.showOptionsWindow();
+            presenter.clickedShowOptionsWindow();
         } else if (this.exitMenuItem.equals(source)){
-            presenter.exitApplication();
+            presenter.clickedExitApplication();
         } else if (this.helpMenuItem.equals(source)){
-            presenter.showHelpWindow();
+            presenter.clickedShowHelpWindow();
         } else if (this.aboutMenuItem.equals(source)){
-            presenter.showAboutWindow();
+            presenter.clickedShowAboutWindow();
         }
 
     }
