@@ -3,15 +3,15 @@ package presenter;
 
 public interface Presenter{
 
-    void startAnimation();
-    void pauseAnimation();
-    void stopAnimation();
-    void openGeneration();
-    void saveGeneration();
-    void showOptionsWindow();
-    void exitApplication();
-    void showHelpWindow();
-    void showAboutWindow();
+    void animationStarted();
+    void animationPaused();
+    void animationStopped();
+    void clickedOpenGeneration();
+    void clickedSaveGeneration();
+    void clickedShowOptionsWindow();
+    void clickedExitApplication();
+    void clickedShowHelpWindow();
+    void clickedShowAboutWindow();
 
 
 
