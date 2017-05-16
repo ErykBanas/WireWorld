@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionListener{
+public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionListener {
 
     private JMenuBar menuBar;
     private JMenu fileMenu;
@@ -31,15 +31,21 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
     WorldGridPanel gridPanel;
     JPanel buttonsPanel;
 
+    private JButton startButton;
+    private JButton pauseButton;
+    private JButton stopButton;
+
     private final int rowsNumber = 20;
     private final int columnsNumber = 30;
     private final int preferredCellLabelSize = 10;
 
     Presenter presenter;
 
+    private boolean started;
+    private boolean stopped;
 
 
-    public WireWorldViewGUI(){
+    public WireWorldViewGUI() {
 
         super("WireWorld");
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -47,7 +53,8 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
 
     }
 
-    private void prepareGUI(){
+    //Przygotowanie okna: umieszczenie wszystkich elementów takich jak menu, przyciski, grid
+    private void prepareGUI() {
 
         //MENU
         menuBar = new JMenuBar();
@@ -111,21 +118,36 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
 
         //CONTAINER
         container = getContentPane();
-        container.setLayout(null);
+        //container.setLayout(new BorderLayout(BorderLayout.CENTER)));
 
         //GRID PANEL
-        gridPanel = new WorldGridPanel(rowsNumber,columnsNumber, preferredCellLabelSize);
-        gridPanel.setBounds(0,0,1000,600);
+        gridPanel = new WorldGridPanel(rowsNumber, columnsNumber, preferredCellLabelSize);
+        gridPanel.setBounds(0, 0, 1000, 600);
 
-        container.add(gridPanel);
+        container.add(gridPanel, BorderLayout.CENTER);
 
         //BUTTONS PANEL
         buttonsPanel = new JPanel();
 
-        //todo dodać przyciski startu, pauzy i stopu
+        startButton = new JButton("Start");
+        buttonsPanel.add(startButton);
+        //startButton.setBounds(0,0,100,25);
+        startButton.addActionListener(this);
+
+        pauseButton = new JButton("Pauza");
+        buttonsPanel.add(pauseButton);
+        //pauseButton.setBounds(0,0,100,25);
+        pauseButton.addActionListener(this);
+
+        stopButton = new JButton("Stop");
+        buttonsPanel.add(stopButton);
+        //stopButton.setBounds(0,0,100,25);
+        stopButton.addActionListener(this);
+
+        container.add(buttonsPanel, BorderLayout.LINE_END);
 
         //FRAME
-        setSize(1500,1000);
+        setSize(1500, 1000);
 
     }
 
@@ -142,18 +164,57 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
     }
 
     public Presenter getPresenter() {
-        return presenter;
+        return this.presenter;
     }
 
-    public void drawGrid() {
-
+    //Uaktualnienie koloru komórki na gridzie
+    public void updateCellLabelColor(int x, int y, Cell.State state) {
+        gridPanel.getCellLabel(x, y).updateCellColor(state);
     }
 
-    public void updateCellLabelColor(int x, int y, Cell.State state){
-        gridPanel.getCellLabel(x,y).updateCellColor(state);
+    public boolean isStarted() {
+        return started;
     }
 
-    public void actionPerformed(ActionEvent e) {
+    public void setStarted(boolean running) {
+        this.started = running;
+    }
+
+    public boolean isStopped() {
+        return stopped;
+    }
+
+    public void setStopped(boolean stopped) {
+        this.stopped = stopped;
+    }
+
+    //Obsługa zdarzeń
+    public void actionPerformed(ActionEvent actionEvent) {
+        Object source = actionEvent.getSource();
+
+        if (this.startButton.equals(source) || this.startMenuItem.equals(source)) {
+            this.started = true;
+            presenter.startAnimation();
+        } else if (this.pauseButton.equals(source) || this.pauseMenuItem.equals(source)) {
+            this.started = false;
+            presenter.pauseAnimation();
+        } else if (this.stopButton.equals(source) || this.stopMenuItem.equals(source)) {
+            this.stopped = true;
+            presenter.stopAnimation();
+        } else if (this.openGenerationMenuItem.equals(source)){
+            presenter.openGeneration();
+        } else if (this.saveGenerationMenuItem.equals(source)){
+            System.out.println("Open");
+            presenter.saveGeneration();
+        } else if (this.optionsMenuItem.equals(source)){
+            presenter.showOptionsWindow();
+        } else if (this.exitMenuItem.equals(source)){
+            presenter.exitApplication();
+        } else if (this.helpMenuItem.equals(source)){
+            presenter.showHelpWindow();
+        } else if (this.aboutMenuItem.equals(source)){
+            presenter.showAboutWindow();
+        }
 
     }
 }
