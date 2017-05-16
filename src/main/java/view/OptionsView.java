@@ -2,7 +2,7 @@ package view;
 
 import presenter.Presenter;
 
-public interface OptionsView {
+public interface OptionsView{
 
     void open();
     void close();
@@ -15,6 +15,5 @@ public interface OptionsView {
     int getNumberOfCellsHorizontally();
     void setNumberOfCellsVertically(int numberOfCellsVertically);
     int getNumberOfCellsVertically();
-
 
 }
