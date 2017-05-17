@@ -1,34 +1,67 @@
 package core;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Klasa reprezentuje grid (planszę) z komórkami
+ */
 public class Grid {
 
+    /**
+     * Obiekt typu HashMap. Wiąże współrzędną komórki {@link Coordinate} ze stanem komórki {@link Cell}. Zawiera komórki wczytane do aplikacji
+     */
     private HashMap <Coordinate,Cell> hm;
 
 
+    /**
+     * Konstruktor tworzący nową HashMapę
+     */
     public Grid(){
         this.hm = new HashMap<Coordinate, Cell>();
     }
-    
-    public Grid(HashMap<Coordinate, Cell> grid) {
-        this.hm = grid;
+    /**
+     * Konstruktor ustawiający hashmapę jako podaną
+     * @param hashMap Przekazana HashMapa
+     */
+    public Grid(HashMap<Coordinate, Cell> hashMap) {
+        this.hm = hashMap;
     }
 
+
+    /**
+     * Zwraca obiekt HashMapy
+     * @return HashMapa
+     */
     public HashMap<Coordinate, Cell> getHashMap() {
         return hm;
     }
 
-    public void setHashMap(HashMap<Coordinate, Cell> grid) {
-        this.hm = grid;
+    /**
+     * Ustawia HashMapę w gridzie
+     * @param hashMap HashMapa
+     */
+    public void setHashMap(HashMap<Coordinate, Cell> hashMap) {
+        this.hm = hashMap;
     }
 
+    /**
+     * Wstawia nową komórkę do HashMapy w gridzie
+     * @param x Współrzędna x komórki
+     * @param y Współrzędna y komórki
+     * @param state Stan komórki typu {@link core.Cell.State}
+     */
     public void insertNewCell(int x, int y, Cell.State state){
         this.hm.put(new Coordinate(x,y), new Cell(state));
     }
 
+    /**
+     * Ustawia stan komórki z HashMapy
+     * @param x Współrzędna x komórki
+     * @param y Współrzędna y komórki
+     * @param state Stan komórki typu {@link core.Cell.State} do ustawienia
+     * @throws Exception
+     */
     public void setCellState(int x, int y, Cell.State state) throws Exception {
         Coordinate coord = new Coordinate(x,y);
         if (this.hm.containsKey(coord)){
@@ -37,6 +70,12 @@ public class Grid {
         else throw new Exception();
     }
 
+    /**
+     * Pobiera stan komórki z HashMapy
+     * @param x Współrzędna x komórki
+     * @param y Współrzędna y komórki
+     * @return Stan komórki typu {@link core.Cell.State}. Jeśli komórka nie jest znaleziona zwraca stan EMPTY
+     */
     public Cell.State getCellState(long x, long y){
         Coordinate coord = new Coordinate(x,y);
         if (this.hm.containsKey(coord)){
@@ -45,6 +84,9 @@ public class Grid {
         else return Cell.State.EMPTY;
     }
 
+    /**
+     * Zlicza sąsiadów danej komórki
+     */
     public void countNeighbours(){
         for (Map.Entry<Coordinate,Cell> entry: hm.entrySet()){
             int counter = 0;
@@ -66,6 +108,7 @@ public class Grid {
             }
         }
     }
+
 
     @Override
     public boolean equals(Object o) {
