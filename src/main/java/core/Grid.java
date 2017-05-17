@@ -56,18 +56,19 @@ public class Grid {
     }
 
     /**
-     * Ustawia stan komórki z HashMapy
+     * Ustawia stan komórki z HashMapy. Jeśli komórka nie istnieje jeszcze w gridzie, zostaje dodana do HashMapy
      * @param x Współrzędna x komórki
      * @param y Współrzędna y komórki
      * @param state Stan komórki typu {@link core.Cell.State} do ustawienia
-     * @throws Exception
      */
-    public void setCellState(int x, int y, Cell.State state) throws Exception {
+    public void setCellState(int x, int y, Cell.State state) {
         Coordinate coord = new Coordinate(x,y);
         if (this.hm.containsKey(coord)){
             hm.get(coord).setState(state);
         }
-        else throw new Exception();
+        else {
+            this.insertNewCell(x,y,state);
+        }
     }
 
     /**
