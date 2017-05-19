@@ -27,7 +27,6 @@ public class WorldPresenter implements Presenter{
 
     public void animationStarted() {
 
-        System.out.println("Start clicked");
         animationStarted = true;
         while(animationStarted) {
             this.wireWorld.getGrid().countNeighbours();
