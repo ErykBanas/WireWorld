@@ -2,6 +2,7 @@ package utils;
 
 import core.Cell;
 import core.Coordinate;
+import core.Grid;
 
 import java.io.File;
 import java.util.HashMap;
@@ -13,10 +14,10 @@ import java.util.HashMap;
 public interface DataReader {
 
     /**
-     * Wczytuje z pliku dane generacji do hashMapy
+     * Wczytuje z pliku dane generacji do gridu
      * @param file Plik, który został wskazany przez użytkownika do wczytania
-     * @return HashMapa z wczytanymi współrzędnymi komórek
+     * @return Grid z wczytanymi do hashMapy współrzędnymi komórek
      */
-    HashMap<Coordinate,Cell> read(File file);
+    Grid read(File file);
 
 }
