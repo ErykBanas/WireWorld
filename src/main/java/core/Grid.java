@@ -55,6 +55,9 @@ public class Grid {
         this.hm.put(new Coordinate(x,y), new Cell(state));
     }
 
+    public void insertCell(Coordinate coordinate, Cell cell){
+        this.hm.put(coordinate, cell);
+    }
     /**
      * Ustawia stan komórki z HashMapy. Jeśli komórka nie istnieje jeszcze w gridzie, zostaje dodana do HashMapy
      * @param x Współrzędna x komórki
@@ -70,6 +73,7 @@ public class Grid {
             this.insertNewCell(x,y,state);
         }
     }
+
 
     /**
      * Pobiera stan komórki z HashMapy
