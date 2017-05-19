@@ -1,12 +1,8 @@
 package view;
 
 
-import core.Cell;
-import core.Pair;
-
 import javax.swing.*;
 import java.awt.*;
-import java.util.LinkedList;
 
 public class WorldGridPanel extends JPanel {
 
@@ -34,16 +30,6 @@ public class WorldGridPanel extends JPanel {
 
     public WorldCellLabel getCellLabel(int x, int y){
         return this.cellLabels[x][y];
-    }
-
-    public void upadateCellsColorList(LinkedList<Pair> linkedList){
-        for(Pair pair:linkedList){
-            int x = (int)pair.getCoordinate().getX();
-            int y = (int)pair.getCoordinate().getY();
-            Cell.State state = pair.getCell().getState();
-
-            this.cellLabels[x][y].updateCellColor(state);
-        }
     }
 
 
