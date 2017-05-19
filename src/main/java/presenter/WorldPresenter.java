@@ -15,26 +15,12 @@ public class WorldPresenter implements Presenter{
         this.animationStarted = false;
     }
 
-    public WireWorld getWireWorld() {
-        return wireWorld;
-    }
-
     public void setWireWorld(WireWorld wireWorld) {
         this.wireWorld = wireWorld;
     }
-
-    public OptionsView getOptionsView() {
-        return optionsView;
-    }
-
     public void setOptionsView(OptionsView optionsView) {
         this.optionsView = optionsView;
     }
-
-    public WireWorldView getWireWorldView() {
-        return wireWorldView;
-    }
-
     public void setWireWorldView(WireWorldView wireWorldView) {
         this.wireWorldView = wireWorldView;
     }
@@ -47,7 +33,7 @@ public class WorldPresenter implements Presenter{
             this.wireWorld.getGrid().countNeighbours();
             this.wireWorld.produceNewGridState();
             wireWorldView.updateCellsColor(wireWorld.getGrid());
-            //this.wireWorldView.updateCellLabelsColorList(this.wireWorld.getChangedCellsList());
+
 //            try {
 //                Thread.sleep(500);
 //            } catch (InterruptedException e) {
