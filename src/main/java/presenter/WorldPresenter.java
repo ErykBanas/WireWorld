@@ -1,19 +1,65 @@
 package presenter;
 
+import model.WireWorld;
 import view.OptionsView;
 import view.WireWorldView;
 
 public class WorldPresenter implements Presenter{
 
+    private WireWorld wireWorld;
     private OptionsView optionsView;
     private WireWorldView wireWorldView;
+    private boolean animationStarted;
+
+    public WorldPresenter() {
+        this.animationStarted = false;
+    }
+
+    public WireWorld getWireWorld() {
+        return wireWorld;
+    }
+
+    public void setWireWorld(WireWorld wireWorld) {
+        this.wireWorld = wireWorld;
+    }
+
+    public OptionsView getOptionsView() {
+        return optionsView;
+    }
+
+    public void setOptionsView(OptionsView optionsView) {
+        this.optionsView = optionsView;
+    }
+
+    public WireWorldView getWireWorldView() {
+        return wireWorldView;
+    }
+
+    public void setWireWorldView(WireWorldView wireWorldView) {
+        this.wireWorldView = wireWorldView;
+    }
 
     public void animationStarted() {
-        throw new UnsupportedOperationException("Jeszcze nie zaimplementowane");
+
+        System.out.println("Start clicked");
+        animationStarted = true;
+        while(animationStarted) {
+            this.wireWorld.getGrid().countNeighbours();
+            this.wireWorld.produceNewGridState();
+            wireWorldView.updateCellsColor(wireWorld.getGrid());
+            //this.wireWorldView.updateCellLabelsColorList(this.wireWorld.getChangedCellsList());
+//            try {
+//                Thread.sleep(500);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+            //todo Poprawić, żeby poprawnie reagowało na ewentualne przerwania
+            animationStarted =false;
+        }
     }
 
     public void animationPaused() {
-        throw new UnsupportedOperationException("Jeszcze nie zaimplementowane");
+        this.animationStarted = false;
     }
 
     public void animationStopped() {
@@ -43,4 +89,6 @@ public class WorldPresenter implements Presenter{
     public void clickedShowAboutWindow() {
         throw new UnsupportedOperationException("Jeszcze nie zaimplementowane");
     }
+
+
 }
