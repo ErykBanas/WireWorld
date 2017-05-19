@@ -3,95 +3,92 @@ package model;
 import core.Cell;
 import core.Coordinate;
 import core.Grid;
-import core.Pair;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Map;
 
+/**
+ * Klasa reprezentuje model danych aplikacji. Zawiera obiekt gridu i wylicza jego nowe stany
+ */
 public class WireWorld {
 
-    private Grid grid;
-    private Grid newGrid;
-    private boolean animationStarted;
-    private LinkedList<Pair> changedCellsList;
-
-
-
-    public WireWorld(){
-        this.grid = new Grid();
-        this.animationStarted = false;
-        this.changedCellsList = new LinkedList<Pair>();
-    }
-
-    public WireWorld(Grid grid){
-        this.grid = grid;
-        this.animationStarted = false;
-        this.changedCellsList = new LinkedList<Pair>();
-    }
     /**
-     * Uruchamia animację
+     * Aktualny grid w modelu aplikacji
      */
-    public void produceNewGridState(){
+    private Grid grid;
+
+    /**
+     * Nowy grid po zmianie stanów komórek wg zasad
+     */
+    private Grid newGrid;
+
+    /**
+     * Konstruktor bezargumentowy tworzący nowy obiekt gridu
+     */
+    public WireWorld() {
+        this.grid = new Grid();
+    }
+
+    /**
+     * Konstruktor przypisujący podany grid do obiektu modelu danych
+     * @param grid
+     */
+    public WireWorld(Grid grid) {
+        this.grid = grid;
+    }
+
+    /**
+     * Generuje nowy stan gridu na podstawie reguł
+     */
+    public void produceNewGridState() {
 
         boolean cellStateChanged;
         Cell.State oldState;
         Cell.State newState;
-        Pair pair;
 
-        while(animationStarted){
+        newGrid = new Grid();
 
-            newGrid = new Grid();
+        Iterator it = grid.getHashMap().entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry entry = (Map.Entry) it.next();
+            Coordinate coordinate = (Coordinate) entry.getKey();
+            Cell cell = (Cell) entry.getValue();
 
-            Iterator it = grid.getHashMap().entrySet().iterator();
-            while(it.hasNext()){
-                Map.Entry entry = (Map.Entry)it.next();
-                Coordinate coordinate = (Coordinate)entry.getKey();
-                Cell cell = (Cell)entry.getValue();
+            cellStateChanged = false;
+            oldState = cell.getState();
+            newState = cell.getState();
 
-                cellStateChanged = false;
-                oldState = cell.getState();
-                newState = cell.getState();
-
-                if(oldState == Cell.State.ELECTRONHEAD){
-                    newState = Cell.State.ELECTRONTAIL;
+            if (oldState == Cell.State.ELECTRONHEAD) {
+                newState = Cell.State.ELECTRONTAIL;
+                cellStateChanged = true;
+            } else if (oldState == Cell.State.ELECTRONTAIL) {
+                newState = Cell.State.WIRE;
+                cellStateChanged = true;
+            } else if (oldState == Cell.State.WIRE) {
+                if (cell.getNeighboursNumber() == 1 || cell.getNeighboursNumber() == 2) {
+                    newState = Cell.State.ELECTRONHEAD;
                     cellStateChanged = true;
-                }else if(oldState == Cell.State.ELECTRONTAIL) {
-                    newState = Cell.State.WIRE;
-                    cellStateChanged = true;
-                }else if(oldState == Cell.State.WIRE){
-                    if(cell.getNeighboursNumber() == 1 || cell.getNeighboursNumber() == 2){
-                        newState = Cell.State.ELECTRONHEAD;
-                        cellStateChanged = true;
-                    }
                 }
-
-                if (cellStateChanged) {
-                    cell.setState(newState);
-                    pair = new Pair(coordinate,cell);
-                    this.changedCellsList.add(pair);
-                }
-
-                newGrid.insertCell(coordinate,cell);
-
-                it.remove();
-
             }
 
+            if (cellStateChanged) {
+                cell.setState(newState);
+            }
 
+            newGrid.insertCell(coordinate, cell);
+            it.remove();
         }
+        this.grid = newGrid;
 
     }
 
-    public Grid getGrid(){
+    public Grid getGrid() {
         return this.grid;
     }
 
-    public void setGrid(Grid grid){
+    public void setGrid(Grid grid) {
         this.grid = grid;
     }
 
-    public LinkedList<Pair> getChangedCellsList() {
-        return this.changedCellsList;
-    }
+
 }
