@@ -2,12 +2,18 @@ package view;
 
 
 import core.Cell;
+import core.Coordinate;
+import core.Grid;
+import core.Pair;
 import presenter.Presenter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Map;
 
 public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionListener {
 
@@ -28,7 +34,7 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
     private JMenuItem aboutMenuItem;
 
     Container container;
-    WorldGridPanel gridPanel;
+    WorldGridPanel worldGridPanel;
     JPanel buttonsPanel;
 
     private JButton startButton;
@@ -121,10 +127,10 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
         //container.setLayout(new BorderLayout(BorderLayout.CENTER)));
 
         //GRID PANEL
-        gridPanel = new WorldGridPanel(rowsNumber, columnsNumber, preferredCellLabelSize);
-        gridPanel.setBounds(0, 0, 1000, 600);
+        worldGridPanel = new WorldGridPanel(rowsNumber, columnsNumber, preferredCellLabelSize);
+        worldGridPanel.setBounds(0, 0, 1000, 600);
 
-        container.add(gridPanel, BorderLayout.CENTER);
+        container.add(worldGridPanel, BorderLayout.CENTER);
 
         //BUTTONS PANEL
         buttonsPanel = new JPanel();
@@ -168,8 +174,22 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
     }
 
     //Uaktualnienie koloru komórki na gridzie
-    public void updateCellLabelColor(int x, int y, Cell.State state) {
-        gridPanel.getCellLabel(x, y).updateCellColor(state);
+    public void updateCellLabelsColorList(LinkedList<Pair> linkedList) {
+        worldGridPanel.upadateCellsColorList(linkedList);
+    }
+
+    public void updateCellsColor(Grid grid){
+
+        Iterator it = grid.getHashMap().entrySet().iterator();
+        while(it.hasNext()) {
+            Map.Entry entry = (Map.Entry) it.next();
+            Coordinate coordinate = (Coordinate) entry.getKey();
+            Cell cell = (Cell) entry.getValue();
+
+            worldGridPanel.getCellLabel((int)coordinate.getY(),(int)coordinate.getX()).updateCellColor(cell.getState());
+
+
+        }
     }
 
     public boolean isStarted() {
