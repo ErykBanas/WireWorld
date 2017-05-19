@@ -1,7 +1,11 @@
 package view;
 
 import core.Cell;
+import core.Grid;
+import core.Pair;
 import presenter.Presenter;
+
+import java.util.LinkedList;
 
 
 public interface WireWorldView {
@@ -11,6 +15,7 @@ public interface WireWorldView {
     void setPresenter(Presenter presenter);
     Presenter getPresenter();
 
-    void updateCellLabelColor(int x, int y, Cell.State state); //Uaktualnienie koloru komórki na gridzie
+    void updateCellLabelsColorList(LinkedList<Pair> linkedList);
+    void updateCellsColor(Grid grid);
 
 }
