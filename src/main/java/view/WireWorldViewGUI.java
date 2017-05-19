@@ -1,10 +1,8 @@
 package view;
 
-
 import core.Cell;
 import core.Coordinate;
 import core.Grid;
-import core.Pair;
 import presenter.Presenter;
 
 import javax.swing.*;
@@ -12,11 +10,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Map;
 
 public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionListener {
 
+    //Deklaracja elementów Menu
     private JMenuBar menuBar;
     private JMenu fileMenu;
     private JMenuItem openGenerationMenuItem;
@@ -37,18 +35,17 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
     WorldGridPanel worldGridPanel;
     JPanel buttonsPanel;
 
+    //Deklaracja przycisków
     private JButton startButton;
     private JButton pauseButton;
     private JButton stopButton;
 
+    //Deklaracja stałych odpowiadających za rozmiary planszy
     private final int rowsNumber = 20;
     private final int columnsNumber = 30;
     private final int preferredCellLabelSize = 10;
 
     Presenter presenter;
-
-    private boolean started;
-    private boolean stopped;
 
 
     public WireWorldViewGUI() {
@@ -160,24 +157,15 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
     public void open() {
         this.setVisible(true);
     }
-
     public void close() {
         this.dispose();
     }
-
     public void setPresenter(Presenter presenter) {
         this.presenter = presenter;
     }
 
-    public Presenter getPresenter() {
-        return this.presenter;
-    }
 
     //Uaktualnienie koloru komórki na gridzie
-    public void updateCellLabelsColorList(LinkedList<Pair> linkedList) {
-        worldGridPanel.upadateCellsColorList(linkedList);
-    }
-
     public void updateCellsColor(Grid grid){
 
         Iterator it = grid.getHashMap().entrySet().iterator();
@@ -188,43 +176,23 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
 
             worldGridPanel.getCellLabel((int)coordinate.getY(),(int)coordinate.getX()).updateCellColor(cell.getState());
 
-
         }
     }
 
-    public boolean isStarted() {
-        return started;
-    }
-
-    public void setStarted(boolean running) {
-        this.started = running;
-    }
-
-    public boolean isStopped() {
-        return stopped;
-    }
-
-    public void setStopped(boolean stopped) {
-        this.stopped = stopped;
-    }
 
     //Obsługa zdarzeń
     public void actionPerformed(ActionEvent actionEvent) {
         Object source = actionEvent.getSource();
 
         if (this.startButton.equals(source) || this.startMenuItem.equals(source)) {
-            this.started = true;
             presenter.animationStarted();
         } else if (this.pauseButton.equals(source) || this.pauseMenuItem.equals(source)) {
-            this.started = false;
             presenter.animationPaused();
         } else if (this.stopButton.equals(source) || this.stopMenuItem.equals(source)) {
-            this.stopped = true;
             presenter.animationStopped();
         } else if (this.openGenerationMenuItem.equals(source)){
             presenter.clickedOpenGeneration();
         } else if (this.saveGenerationMenuItem.equals(source)){
-            System.out.println("Open");
             presenter.clickedSaveGeneration();
         } else if (this.optionsMenuItem.equals(source)){
             presenter.clickedShowOptionsWindow();
