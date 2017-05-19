@@ -11,21 +11,21 @@ public class Grid {
     /**
      * Obiekt typu HashMap. Wiąże współrzędną komórki {@link Coordinate} ze stanem komórki {@link Cell}. Zawiera komórki wczytane do aplikacji
      */
-    private HashMap <Coordinate,Cell> hm;
+    private HashMap <Coordinate,Cell> hashMap;
 
 
     /**
      * Konstruktor tworzący nową HashMapę
      */
     public Grid(){
-        this.hm = new HashMap<Coordinate, Cell>();
+        this.hashMap = new HashMap<Coordinate, Cell>();
     }
     /**
      * Konstruktor ustawiający hashmapę jako podaną
      * @param hashMap Przekazana HashMapa
      */
     public Grid(HashMap<Coordinate, Cell> hashMap) {
-        this.hm = hashMap;
+        this.hashMap = hashMap;
     }
 
 
@@ -34,7 +34,7 @@ public class Grid {
      * @return HashMapa
      */
     public HashMap<Coordinate, Cell> getHashMap() {
-        return hm;
+        return hashMap;
     }
 
     /**
@@ -42,7 +42,7 @@ public class Grid {
      * @param hashMap HashMapa
      */
     public void setHashMap(HashMap<Coordinate, Cell> hashMap) {
-        this.hm = hashMap;
+        this.hashMap = hashMap;
     }
 
     /**
@@ -52,11 +52,16 @@ public class Grid {
      * @param state Stan komórki typu {@link core.Cell.State}
      */
     public void insertNewCell(int x, int y, Cell.State state){
-        this.hm.put(new Coordinate(x,y), new Cell(state));
+        this.hashMap.put(new Coordinate(x,y), new Cell(state));
     }
 
+    /**
+     * Wstawia komórkę do gridu na podstawie istniejących już obiektów Coordinate i Cell
+     * @param coordinate Obiekt klasy Coordinate - współrzędne x i y
+     * @param cell Obiekt klasy cell - komórka
+     */
     public void insertCell(Coordinate coordinate, Cell cell){
-        this.hm.put(coordinate, cell);
+        this.hashMap.put(coordinate, cell);
     }
     /**
      * Ustawia stan komórki z HashMapy. Jeśli komórka nie istnieje jeszcze w gridzie, zostaje dodana do HashMapy
@@ -66,8 +71,8 @@ public class Grid {
      */
     public void setCellState(int x, int y, Cell.State state) {
         Coordinate coord = new Coordinate(x,y);
-        if (this.hm.containsKey(coord)){
-            hm.get(coord).setState(state);
+        if (this.hashMap.containsKey(coord)){
+            hashMap.get(coord).setState(state);
         }
         else {
             this.insertNewCell(x,y,state);
@@ -83,8 +88,8 @@ public class Grid {
      */
     public Cell.State getCellState(long x, long y){
         Coordinate coord = new Coordinate(x,y);
-        if (this.hm.containsKey(coord)){
-            return hm.get(coord).getState();
+        if (this.hashMap.containsKey(coord)){
+            return hashMap.get(coord).getState();
         }
         else return Cell.State.EMPTY;
     }
@@ -93,7 +98,7 @@ public class Grid {
      * Zlicza sąsiadów danej komórki
      */
     public void countNeighbours(){
-        for (Map.Entry<Coordinate,Cell> entry: hm.entrySet()){
+        for (Map.Entry<Coordinate,Cell> entry: hashMap.entrySet()){
             int counter = 0;
             Coordinate coord;
             coord = entry.getKey();
@@ -109,7 +114,7 @@ public class Grid {
                 if (getCellState(coord.getX(), coord.getY() + 1) == Cell.State.ELECTRONHEAD) counter++;
                 if (getCellState(coord.getX() - 1, coord.getY() + 1) == Cell.State.ELECTRONHEAD) counter++;
                 cell.setNeighboursNumber(counter);
-                hm.put(coord,cell);
+                hashMap.put(coord,cell);
             }
         }
     }
@@ -122,11 +127,11 @@ public class Grid {
 
         Grid grid1 = (Grid) o;
 
-        return hm != null ? hm.equals(grid1.hm) : grid1.hm == null;
+        return hashMap != null ? hashMap.equals(grid1.hashMap) : grid1.hashMap == null;
     }
 
     @Override
     public int hashCode() {
-        return hm != null ? hm.hashCode() : 0;
+        return hashMap != null ? hashMap.hashCode() : 0;
     }
 }
