@@ -34,12 +34,8 @@ public class WorldPresenter implements Presenter{
             this.world.produceNewWorldState();
             wireWorldView.updateCellsColor(world.getGrid());
 
-//            try {
-//                Thread.sleep(500);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-            //todo Poprawić, żeby poprawnie reagowało na ewentualne przerwania
+            //todo Uzupełnić implementację metody, aby obsługiwała wielowątkowość
+
             animationStarted =false;
         }
     }
