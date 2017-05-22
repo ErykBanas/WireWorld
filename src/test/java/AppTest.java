@@ -1,23 +1,32 @@
+import core.Cell;
 import core.Grid;
 import model.WireWorld;
 import model.World;
 import presenter.Presenter;
 import presenter.WorldPresenter;
-import utils.DataReader;
-import utils.DataReaderJSONDraft;
 import view.WireWorldView;
 import view.WireWorldViewGUI;
-
-import java.io.File;
 
 public class AppTest {
 
     public static void main(String []args){
 
-        Grid grid;
-        DataReader dr = DataReaderJSONDraft.getInstance();
-        File file = new File("input\\exampleInputData.json");
-        grid = dr.read(file);
+        //Ręczne utworzenie gridu na cele testowe. Docelowo będzie tworzony i zwracany przez wywołanie metody DataReaderJSON.read()
+        Grid grid = new Grid();
+        grid.insertNewCell(1,3, Cell.State.WIRE);
+        grid.insertNewCell(2,3, Cell.State.WIRE);
+        grid.insertNewCell(3,3, Cell.State.WIRE);
+        grid.insertNewCell(0,3, Cell.State.WIRE);
+        grid.insertNewCell(4,3, Cell.State.WIRE);
+        grid.insertNewCell(5,3, Cell.State.WIRE);
+        grid.insertNewCell(6,3, Cell.State.WIRE);
+        grid.insertNewCell(7,2, Cell.State.WIRE);
+        grid.insertNewCell(7,4, Cell.State.WIRE);
+        grid.insertNewCell(8,2, Cell.State.WIRE);
+        grid.insertNewCell(8,4, Cell.State.WIRE);
+        grid.insertNewCell(2,3, Cell.State.ELECTRONHEAD);
+        grid.insertNewCell(1,3, Cell.State.ELECTRONTAIL);
+        grid.insertNewCell(9,3, Cell.State.WIRE);
 
         World world = new WireWorld(grid);
         Presenter presenter = new WorldPresenter();
