@@ -1,6 +1,6 @@
 package presenter;
 
-import model.WireWorld;
+import model.World;
 import view.OptionsView;
 import view.WireWorldView;
 
@@ -8,7 +8,7 @@ public interface Presenter{
 
     void setWireWorldView(WireWorldView wireWorldView);
     void setOptionsView(OptionsView optionsView);
-    void setWireWorld(WireWorld wireWorld);
+    void setWorld(World world);
 
     void animationStarted();
     void animationPaused();

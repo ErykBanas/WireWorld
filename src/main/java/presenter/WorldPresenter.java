@@ -1,12 +1,12 @@
 package presenter;
 
-import model.WireWorld;
+import model.World;
 import view.OptionsView;
 import view.WireWorldView;
 
 public class WorldPresenter implements Presenter{
 
-    private WireWorld wireWorld;
+    private World world;
     private OptionsView optionsView;
     private WireWorldView wireWorldView;
     private boolean animationStarted;
@@ -15,8 +15,8 @@ public class WorldPresenter implements Presenter{
         this.animationStarted = false;
     }
 
-    public void setWireWorld(WireWorld wireWorld) {
-        this.wireWorld = wireWorld;
+    public void setWorld(World world) {
+        this.world = world;
     }
     public void setOptionsView(OptionsView optionsView) {
         this.optionsView = optionsView;
@@ -29,9 +29,10 @@ public class WorldPresenter implements Presenter{
 
         animationStarted = true;
         while(animationStarted) {
-            this.wireWorld.getGrid().countNeighbours();
-            this.wireWorld.produceNewGridState();
-            wireWorldView.updateCellsColor(wireWorld.getGrid());
+
+            this.world.getGrid().countNeighbours();
+            this.world.produceNewWorldState();
+            wireWorldView.updateCellsColor(world.getGrid());
 
 //            try {
 //                Thread.sleep(500);

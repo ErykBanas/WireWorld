@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Klasa reprezentuje model danych aplikacji. Zawiera obiekt gridu i wylicza jego nowe stany
  */
-public class WireWorld {
+public class WireWorld implements World{
 
     /**
      * Aktualny grid w modelu aplikacji
@@ -31,7 +31,7 @@ public class WireWorld {
 
     /**
      * Konstruktor przypisujący podany grid do obiektu modelu danych
-     * @param grid
+     * @param grid Istniejący grid podany podczas tworzenia obiektu klasy WireWorld
      */
     public WireWorld(Grid grid) {
         this.grid = grid;
@@ -40,7 +40,7 @@ public class WireWorld {
     /**
      * Generuje nowy stan gridu na podstawie reguł
      */
-    public void produceNewGridState() {
+    public void produceNewWorldState() {
 
         boolean cellStateChanged;
         Cell.State oldState;
