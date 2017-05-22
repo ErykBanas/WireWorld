@@ -1,11 +1,8 @@
 package utils;
 
-import core.Cell;
-import core.Coordinate;
 import core.Grid;
 
 import java.io.File;
-import java.util.HashMap;
 
 /**
  * Wczytuje dane generacji z pliku typu JSON do Hashmapy
