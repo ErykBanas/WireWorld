@@ -27,17 +27,17 @@ public class WorldPresenter implements Presenter{
 
     public void animationStarted() {
 
-        animationStarted = true;
-        while(animationStarted) {
 
-            this.world.getGrid().countNeighbours();
-            this.world.produceNewWorldState();
-            wireWorldView.updateCellsColor(world.getGrid());
+                animationStarted = true;
+                while (animationStarted) {
 
-            //todo Uzupełnić implementację metody, aby obsługiwała wielowątkowość
+                    this.world.produceNewWorldState();
+                    this.wireWorldView.updateCellsColor(world.getGrid());
+                    //todo Uzupełnić implementację metody, aby obsługiwała wielowątkowość
 
-            animationStarted =false;
-        }
+                    animationStarted = false;
+                }
+
     }
 
     public void animationPaused() {

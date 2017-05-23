@@ -47,6 +47,7 @@ public class WireWorld implements World{
         Cell.State newState;
 
         newGrid = new Grid();
+        this.grid.countNeighbours();
 
         Iterator it = grid.getHashMap().entrySet().iterator();
         while (it.hasNext()) {
