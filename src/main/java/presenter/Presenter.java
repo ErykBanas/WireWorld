@@ -27,6 +27,10 @@ public interface Presenter{
      */
     void setWorld(World world);
 
+    World getWorld();
+
+    WireWorldView getWireWorldView();
+
     /**
      * Reakcja na wciśnięcie przycisku Start
      */
@@ -71,6 +75,8 @@ public interface Presenter{
      * Reakcja na wybranie z menu pozycji O programie
      */
     void clickedShowAboutWindow();
+
+    void setSimulationThread(SimulationThread simulationThread);
 
 
 

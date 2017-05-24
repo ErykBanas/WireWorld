@@ -9,10 +9,11 @@ public class WorldPresenter implements Presenter{
     private World world;
     private OptionsView optionsView;
     private WireWorldView wireWorldView;
-    private boolean animationStarted;
+    private SimulationThread simulationThread;
+
 
     public WorldPresenter() {
-        this.animationStarted = false;
+
     }
 
     public void setWorld(World world) {
@@ -24,24 +25,28 @@ public class WorldPresenter implements Presenter{
     public void setWireWorldView(WireWorldView wireWorldView) {
         this.wireWorldView = wireWorldView;
     }
+    public void setSimulationThread(SimulationThread simulationThread) {
+        this.simulationThread = simulationThread;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public WireWorldView getWireWorldView() {
+        return wireWorldView;
+    }
 
     public void animationStarted() {
-
-
-                animationStarted = true;
-                while (animationStarted) {
-
-                    this.world.produceNewWorldState();
-                    this.wireWorldView.updateCellsColor(world.getGrid());
-                    //todo Uzupełnić implementację metody, aby obsługiwała wielowątkowość
-
-                    animationStarted = false;
-                }
-
+        simulationThread.resumeThread();
     }
 
     public void animationPaused() {
-        this.animationStarted = false;
+        try {
+            simulationThread.pauseThread();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void animationStopped() {
