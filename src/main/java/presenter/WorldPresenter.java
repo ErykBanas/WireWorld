@@ -70,7 +70,7 @@ public class WorldPresenter implements Presenter{
     }
 
     public void clickedExitApplication() {
-        throw new UnsupportedOperationException("Jeszcze nie zaimplementowane");
+        System.exit(0);
     }
 
     public void clickedShowHelpWindow() {
@@ -78,7 +78,7 @@ public class WorldPresenter implements Presenter{
     }
 
     public void clickedShowAboutWindow() {
-        throw new UnsupportedOperationException("Jeszcze nie zaimplementowane");
+        wireWorldView.showAbout();
     }
 
 

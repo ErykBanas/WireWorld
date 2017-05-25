@@ -195,6 +195,10 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
         }
     }
 
+    public void showAbout(){
+        JOptionPane.showMessageDialog(this,"WireWorld 1.0 \n\nAutorzy: \nEryk Banaś \nMateusz Bocheński");
+    }
+
     //Obsługa zdarzeń
     public void actionPerformed(ActionEvent actionEvent) {
         Object source = actionEvent.getSource();
