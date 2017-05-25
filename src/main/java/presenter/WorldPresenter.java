@@ -74,7 +74,7 @@ public class WorldPresenter implements Presenter{
     }
 
     public void clickedShowHelpWindow() {
-        throw new UnsupportedOperationException("Jeszcze nie zaimplementowane");
+        wireWorldView.showHelp();
     }
 
     public void clickedShowAboutWindow() {

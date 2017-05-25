@@ -17,5 +17,6 @@ public interface WireWorldView {
     void updateCellsColor(Grid grid);
 
     void showAbout();
+    void showHelp();
 
 }

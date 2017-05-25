@@ -199,6 +199,19 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
         JOptionPane.showMessageDialog(this,"WireWorld 1.0 \n\nAutorzy: \nEryk Banaś \nMateusz Bocheński");
     }
 
+    public void showHelp(){
+        JOptionPane.showMessageDialog(this,"WireWorld\n\n" +
+                "Aplikacja służy do przedstawienia symulacji automatu komórkowego WireWorld.\n\n" +
+                "- W celu rozpoczęcia symulacji wybierz przycisk \"Start\"\n" +
+                "- Aby zatrzymać symulację wybierz \"Pauza\"\n" +
+                "- Symulacja zostanie zakończona po wybraniu przycisku \"Stop\"" +
+                " lub po określonej w ustawieniach liczbie generacji\n" +
+                "\nAplikacja umożliwia wczytywanie oraz zapisytwanie generacji w pliku JSON\n" +
+                "Użytkownik może zmienić rozmiary planszy, szybkość generacji oraz liczbę generacji" +
+                " wybieracjąc z menu pozycję Plik>Opcje");
+    }
+
+
     //Obsługa zdarzeń
     public void actionPerformed(ActionEvent actionEvent) {
         Object source = actionEvent.getSource();
