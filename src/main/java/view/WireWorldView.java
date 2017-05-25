@@ -1,6 +1,6 @@
 package view;
 
-import core.Cell;
+import core.Grid;
 import presenter.Presenter;
 
 
@@ -9,8 +9,14 @@ public interface WireWorldView {
     void open(); //Pokazanie zawartości widoku
     void close(); //Usunięcie zawartości widoku
     void setPresenter(Presenter presenter);
-    Presenter getPresenter();
 
-    void updateCellLabelColor(int x, int y, Cell.State state); //Uaktualnienie koloru komórki na gridzie
+    /**
+     * Pokolorowanie komórek wg stanów gridu
+     * @param grid Grid wejściowy, wg któego są kolorowane komórki
+     */
+    void updateCellsColor(Grid grid);
+
+    void showAbout();
+    void showHelp();
 
 }
