@@ -40,9 +40,9 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
     private JButton pauseButton;
     private JButton stopButton;
 
-    //Deklaracja stałych odpowiadających za rozmiary planszy
-    private final int rowsNumber = 20;
-    private final int columnsNumber = 30;
+    //Deklaracja domyślnych wartości odpowiadających za rozmiary planszy.
+    private int rowsNumber = 20;
+    private int columnsNumber = 30;
     private final int preferredCellLabelSize = 10;
 
     Presenter presenter;
@@ -52,6 +52,22 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
 
         super("WireWorld");
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.prepareGUI();
+
+    }
+
+    /**
+     * Konstruktor, który ustwia rozmiar planszy (gridu) wg przekazanych wartości
+     * Uruchamia metodę prepareGUI, która deklaruje obiekty graficzne okna
+     * @param columnsNumber Liczba kolumn (rozmiar x)
+     * @param rowsNumber Liczba wierszy (rozmiar y)
+     */
+    public WireWorldViewGUI(int columnsNumber, int rowsNumber) {
+
+        super("WireWorld");
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.columnsNumber = columnsNumber;
+        this.rowsNumber = rowsNumber;
         this.prepareGUI();
 
     }
@@ -178,7 +194,6 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
 
         }
     }
-
 
     //Obsługa zdarzeń
     public void actionPerformed(ActionEvent actionEvent) {

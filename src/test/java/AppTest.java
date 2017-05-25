@@ -37,14 +37,13 @@ public class AppTest {
                 grid.insertNewCell(1,3, Cell.State.ELECTRONTAIL);
                 grid.insertNewCell(9,3, Cell.State.WIRE);
 
+                ConfigReader configReader = ConfigReaderJSON.getInstance();
+                configReader.read(new File("config.json"));
+
                 World world = new WireWorld(grid);
                 Presenter presenter = new WorldPresenter();
-                WireWorldView view = new WireWorldViewGUI();
+                WireWorldView view = new WireWorldViewGUI(configReader.getGridSizeX(),configReader.getGridSizeY());
                 SimulationThread simulationThread = new SimulationThread();
-
-                File configFile = new File("config.json");
-                ConfigReader configReader = ConfigReaderJSON.getInstance();
-                configReader.read(configFile);
 
 
                 simulationThread.setPresenter(presenter);
