@@ -11,12 +11,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 
+/**
+ * Klasa singleton wczytująca z pliku dane konfiguracyjne aplikacji i przechowująca je w sobie
+ */
 public class ConfigReaderJSON implements ConfigReader{
 
-    private Long animationSpeed;
-    private Long numberOfGenerations;
-    private Long gridSizeX;
-    private Long gridSizeY;
+    private int animationSpeed;
+    private int numberOfGenerations;
+    private int gridSizeX;
+    private int gridSizeY;
 
     private ConfigReaderJSON(){
     }
@@ -29,19 +32,19 @@ public class ConfigReaderJSON implements ConfigReader{
         private static final ConfigReaderJSON instance = new ConfigReaderJSON();
     }
 
-    public Long getAnimationSpeed() {
+    public int getAnimationSpeed() {
         return animationSpeed;
     }
 
-    public Long getNumberOfGenerations() {
+    public int getNumberOfGenerations() {
         return numberOfGenerations;
     }
 
-    public Long getGridSizeX() {
+    public int getGridSizeX() {
         return gridSizeX;
     }
 
-    public Long getGridSizeY() {
+    public int getGridSizeY() {
         return gridSizeY;
     }
 
@@ -53,15 +56,15 @@ public class ConfigReaderJSON implements ConfigReader{
             Object obj = parser.parse(new FileReader(file));
             JSONObject jsonObject = (JSONObject)obj;
 
-            this.animationSpeed = (Long)jsonObject.get("AnimationSpeed");
-            this.numberOfGenerations = (Long)jsonObject.get("NumberOfGenerations");
+            this.animationSpeed = ((Long)jsonObject.get("AnimationSpeed")).intValue();
+            this.numberOfGenerations = ((Long)jsonObject.get("NumberOfGenerations")).intValue();
 
             JSONArray gridSizes = (JSONArray) jsonObject.get("GridSize");
             Iterator i = gridSizes.iterator();
             JSONObject size = (JSONObject) i.next();
-            this.gridSizeX = (Long) size.get("x");
+            this.gridSizeX = ((Long) size.get("x")).intValue();
             size = (JSONObject) i.next();
-            this.gridSizeY = (Long) size.get("y");
+            this.gridSizeY = ((Long) size.get("y")).intValue();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

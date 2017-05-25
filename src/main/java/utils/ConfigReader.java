@@ -11,25 +11,25 @@ public interface ConfigReader {
      * Zwraca prędkość animacji
      * @return Prędkość animacji
      */
-    Long getAnimationSpeed();
+    int getAnimationSpeed();
 
     /**
      * Zwraca liczbę generacji
      * @return Liczba generacji
      */
-    Long getNumberOfGenerations();
+    int getNumberOfGenerations();
 
     /**
      * Zwraca rozmiar poziomy planszy (gridu)
      * @return Rozmiar poziomy planszy (gridu)
      */
-    Long getGridSizeX();
+    int getGridSizeX();
 
     /**
      * Zwraca rozmiar pionowy planszy (gridu)
      * @return Rozmiar pionowy planszy (gridu)
      */
-    Long getGridSizeY();
+    int getGridSizeY();
 
     /**
      * Wczytuje dane konfiguracyjne z pliku i zapisuje w atrybutach klasy
