@@ -65,7 +65,7 @@
         "y": 3
       }
     ],
-    "AndGate": [
+    "OrGate": [
       {
         "startX": 9,
         "startY": 3
