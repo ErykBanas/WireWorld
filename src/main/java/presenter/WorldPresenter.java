@@ -37,6 +37,10 @@ public class WorldPresenter implements Presenter{
         return wireWorldView;
     }
 
+    public SimulationThread getSimulationThread() {
+        return simulationThread;
+    }
+
     public void animationStarted() {
         simulationThread.resumeThread();
     }

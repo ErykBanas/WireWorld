@@ -54,6 +54,8 @@ public class AppTest {
 
                 view.setPresenter(presenter);
                 view.open();
+
+                //presenter.getSimulationThread().setAnimationSpeed(1000);
             }
         });
 

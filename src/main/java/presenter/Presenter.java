@@ -31,6 +31,8 @@ public interface Presenter{
 
     WireWorldView getWireWorldView();
 
+    SimulationThread getSimulationThread();
+
     /**
      * Reakcja na wciśnięcie przycisku Start
      */

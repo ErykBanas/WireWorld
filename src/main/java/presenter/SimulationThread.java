@@ -6,6 +6,7 @@ public class SimulationThread extends Thread{
     private final Object Monitor = new Object();
     private boolean pauseThreadFlag = false;
     private Presenter presenter;
+    private int animationSpeed = 1000;
 
     public SimulationThread(){
         start();
@@ -22,7 +23,7 @@ public class SimulationThread extends Thread{
                 checkForPaused();
                 presenter.getWorld().produceNewWorldState();
                 presenter.getWireWorldView().updateCellsColor(presenter.getWorld().getGrid());
-                Thread.sleep(1000);
+                Thread.sleep(animationSpeed);
             }catch (InterruptedException e){break;}
         }
     }
@@ -52,4 +53,7 @@ public class SimulationThread extends Thread{
         this.presenter = presenter;
     }
 
+    public void setAnimationSpeed(int animationSpeed) {
+        this.animationSpeed = animationSpeed;
+    }
 }
