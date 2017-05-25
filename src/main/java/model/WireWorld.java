@@ -83,6 +83,18 @@ public class WireWorld implements World{
 
     }
 
+    public void clearGrid(){
+        Iterator it = this.getGrid().getHashMap().entrySet().iterator();
+
+        while(it.hasNext()){
+            Map.Entry<Coordinate,Cell> entry = (Map.Entry) it.next();
+            //it.remove();
+            entry.getValue().setState(Cell.State.EMPTY);
+
+        }
+
+    }
+
     public Grid getGrid() {
         return this.grid;
     }
