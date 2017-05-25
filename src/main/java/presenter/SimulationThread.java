@@ -1,11 +1,17 @@
 package presenter;
 
-
+/**
+ * Klasa obsługująca symulację. Tworzy nowy wątek i z zadanym opóźnieniem generuje kolejne stany generacji
+ */
 public class SimulationThread extends Thread{
 
     private final Object Monitor = new Object();
     private boolean pauseThreadFlag = false;
     private Presenter presenter;
+
+    /**
+     * Opóźnienie animacji w milisekundach
+     */
     private int animationSpeed = 1000;
 
     public SimulationThread(){
