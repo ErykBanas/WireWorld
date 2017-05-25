@@ -5,10 +5,13 @@ import model.World;
 import presenter.Presenter;
 import presenter.SimulationThread;
 import presenter.WorldPresenter;
+import utils.ConfigReader;
+import utils.ConfigReaderJSON;
 import view.WireWorldView;
 import view.WireWorldViewGUI;
 
 import javax.swing.*;
+import java.io.File;
 
 public class AppTest {
 
@@ -38,6 +41,11 @@ public class AppTest {
                 Presenter presenter = new WorldPresenter();
                 WireWorldView view = new WireWorldViewGUI();
                 SimulationThread simulationThread = new SimulationThread();
+
+                File configFile = new File("config.json");
+                ConfigReader configReader = ConfigReaderJSON.getInstance();
+                configReader.read(configFile);
+
 
                 simulationThread.setPresenter(presenter);
 
