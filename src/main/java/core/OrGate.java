@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Przechowuje dane komórek należących do bramki typu OR
  */
-public class OrGate {
+public class OrGate extends WorldObject{
 
     /**
      * Współrzędna początkowa X bramki OR
@@ -24,6 +24,11 @@ public class OrGate {
     private final int gateCellsNumber = 5;
 
     /**
+     * Stan komórek w bramce
+     */
+    private Cell.State gateState;
+
+    /**
      * Lista komórek w bramce
      */
     private ArrayList<Coordinate> gateCellsList;
@@ -38,6 +43,7 @@ public class OrGate {
         this.startXcoordinate = startXcoordinate;
         this.startYcoordinate = startYcoordinate;
         insertCoordinatesIntoList();
+        gateState = Cell.State.WIRE;
     }
 
     /**
@@ -51,11 +57,20 @@ public class OrGate {
         gateCellsList.add(new Coordinate(startXcoordinate+1,startYcoordinate+2));
     }
 
-    public ArrayList<Coordinate> getGateCellsList() {
-        return gateCellsList;
-    }
 
     public int getGateCellsNumber() {
         return gateCellsNumber;
+    }
+
+    /**
+     * Zwraca listę komórek bramki
+     * @return Lista komórek (Coordinate) bramki
+     */
+    public ArrayList<Coordinate> getObjectCells() {
+        return gateCellsList;
+    }
+
+    public Cell.State getObjectState() {
+        return this.gateState;
     }
 }
