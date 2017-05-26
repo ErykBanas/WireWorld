@@ -79,6 +79,12 @@ public class Grid {
         }
     }
 
+    public void insertNewObject(WorldObject worldObject){
+        for(Coordinate c:worldObject.getObjectCells()){
+            this.hashMap.put(c,new Cell(worldObject.getObjectState()));
+        }
+    }
+
 
     /**
      * Pobiera stan komórki z HashMapy
