@@ -6,7 +6,7 @@ import view.WireWorldView;
 
 public class WorldPresenter implements Presenter{
 
-    private World world;
+    private World wireWorld;
     private OptionsView optionsView;
     private WireWorldView wireWorldView;
     private SimulationThread simulationThread;
@@ -17,7 +17,7 @@ public class WorldPresenter implements Presenter{
     }
 
     public void setWorld(World world) {
-        this.world = world;
+        this.wireWorld = world;
     }
     public void setOptionsView(OptionsView optionsView) {
         this.optionsView = optionsView;
@@ -30,7 +30,7 @@ public class WorldPresenter implements Presenter{
     }
 
     public World getWorld() {
-        return world;
+        return wireWorld;
     }
 
     public WireWorldView getWireWorldView() {
@@ -54,7 +54,13 @@ public class WorldPresenter implements Presenter{
     }
 
     public void animationStopped() {
-        throw new UnsupportedOperationException("Jeszcze nie zaimplementowane");
+        try {
+            simulationThread.pauseThread();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        wireWorld.clearGrid();
+        wireWorldView.updateCellsColor(wireWorld.getGrid());
     }
 
     public void clickedOpenGeneration() {

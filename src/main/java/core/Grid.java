@@ -79,6 +79,12 @@ public class Grid {
         }
     }
 
+    public void insertNewObject(WorldObject worldObject){
+        for(Coordinate c:worldObject.getObjectCells()){
+            this.hashMap.put(c,new Cell(worldObject.getObjectState()));
+        }
+    }
+
 
     /**
      * Pobiera stan komórki z HashMapy
@@ -86,7 +92,7 @@ public class Grid {
      * @param y Współrzędna y komórki
      * @return Stan komórki typu {@link core.Cell.State}. Jeśli komórka nie jest znaleziona zwraca stan EMPTY
      */
-    public Cell.State getCellState(long x, long y){
+    public Cell.State getCellState(int x, int y){
         Coordinate coord = new Coordinate(x,y);
         if (this.hashMap.containsKey(coord)){
             return hashMap.get(coord).getState();

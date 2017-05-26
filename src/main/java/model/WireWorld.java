@@ -23,10 +23,16 @@ public class WireWorld implements World{
     private Grid newGrid;
 
     /**
+     * Grid początkowy, ustawiany po wczytaniu danych generacji z pliku
+     */
+    private Grid basicGrid;
+
+    /**
      * Konstruktor bezargumentowy tworzący nowy obiekt gridu
      */
     public WireWorld() {
         this.grid = new Grid();
+        this.basicGrid = new Grid();
     }
 
     /**
@@ -35,6 +41,7 @@ public class WireWorld implements World{
      */
     public WireWorld(Grid grid) {
         this.grid = grid;
+        this.basicGrid = new Grid();
     }
 
     /**
@@ -83,6 +90,18 @@ public class WireWorld implements World{
 
     }
 
+    public void clearGrid(){
+        Iterator it = this.getGrid().getHashMap().entrySet().iterator();
+
+        while(it.hasNext()){
+            Map.Entry<Coordinate,Cell> entry = (Map.Entry) it.next();
+            //it.remove();
+            entry.getValue().setState(Cell.State.EMPTY);
+
+        }
+
+    }
+
     public Grid getGrid() {
         return this.grid;
     }
@@ -92,4 +111,11 @@ public class WireWorld implements World{
     }
 
 
+    public Grid getBasicGrid() {
+        return basicGrid;
+    }
+
+    public void setBasicGrid(Grid basicGrid) {
+        this.basicGrid = basicGrid;
+    }
 }
