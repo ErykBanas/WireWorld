@@ -8,11 +8,11 @@ public class Coordinate {
     /**
      * Współrzędna x
      */
-    private long x;
+    private int x;
     /**
      * Współrzędna y
      */
-    private long y;
+    private int y;
 
 
     /**
@@ -20,7 +20,7 @@ public class Coordinate {
      * @param x Współrzędna x
      * @param y Współrzędna y
      */
-    public Coordinate(long x, long y) {
+    public Coordinate(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -30,31 +30,30 @@ public class Coordinate {
      * Pobiera wartość współrzędnej x
      * @return Wartość współrzędnej x
      */
-    public long getX() {
+    public int getX() {
         return x;
     }
     /**
      * Pobiera wartość współrzędnej y
      * @return Wartość współrzędnej y
      */
-    public long getY() {
+    public int getY() {
         return y;
     }
     /**
      * Ustawia wartość współrzędnej x
      * @param x Wartość współrzędnej x
      */
-    public void setX(long x) {
+    public void setX(int x) {
         this.x = x;
     }
     /**
      * Ustawia wartość współrzędnej y
      * @param y wartość Współrzędnej y
      */
-    public void setY(long y) {
+    public void setY(int y) {
         this.y = y;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -69,8 +68,8 @@ public class Coordinate {
 
     @Override
     public int hashCode() {
-        int result = (int) (x ^ (x >>> 32));
-        result = 31 * result + (int) (y ^ (y >>> 32));
+        int result = x;
+        result = 31 * result + y;
         return result;
     }
 
