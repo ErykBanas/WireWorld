@@ -23,10 +23,16 @@ public class WireWorld implements World{
     private Grid newGrid;
 
     /**
+     * Grid początkowy, ustawiany po wczytaniu danych generacji z pliku
+     */
+    private Grid basicGrid;
+
+    /**
      * Konstruktor bezargumentowy tworzący nowy obiekt gridu
      */
     public WireWorld() {
         this.grid = new Grid();
+        this.basicGrid = new Grid();
     }
 
     /**
@@ -35,6 +41,7 @@ public class WireWorld implements World{
      */
     public WireWorld(Grid grid) {
         this.grid = grid;
+        this.basicGrid = new Grid();
     }
 
     /**
@@ -104,4 +111,11 @@ public class WireWorld implements World{
     }
 
 
+    public Grid getBasicGrid() {
+        return basicGrid;
+    }
+
+    public void setBasicGrid(Grid basicGrid) {
+        this.basicGrid = basicGrid;
+    }
 }
