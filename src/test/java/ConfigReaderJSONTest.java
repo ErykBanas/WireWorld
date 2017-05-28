@@ -4,7 +4,9 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import utils.ConfigReader;
 import utils.ConfigReaderJSON;
+
 import java.io.File;
+
 import static junit.framework.TestCase.assertEquals;
 
 
@@ -23,21 +25,21 @@ public class ConfigReaderJSONTest {
 
     @Test
     public void isAnimationSpeedRead(){
-        assertEquals(Long.valueOf(1000),cr.getAnimationSpeed());
+        assertEquals(1000,cr.getAnimationSpeed());
     }
 
     @Test
     public void isNumberOfGenerationsRead(){
-        assertEquals(Long.valueOf(100),cr.getNumberOfGenerations());
+        assertEquals(100,cr.getNumberOfGenerations());
     }
 
     @Test
     public void isGridSizeXRead(){
-        assertEquals(Long.valueOf(60),cr.getGridSizeX());
+        assertEquals(30,cr.getGridSizeX());
     }
 
     @Test
     public void isGridSizeYRead(){
-        assertEquals(Long.valueOf(40),cr.getGridSizeY());
+        assertEquals(20,cr.getGridSizeY());
     }
 }

@@ -1,16 +1,20 @@
 package view;
 
-
 import core.Cell;
+import core.Coordinate;
+import core.Grid;
 import presenter.Presenter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
+import java.util.Map;
 
 public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionListener {
 
+    //Deklaracja elementów Menu
     private JMenuBar menuBar;
     private JMenu fileMenu;
     private JMenuItem openGenerationMenuItem;
@@ -28,27 +32,42 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
     private JMenuItem aboutMenuItem;
 
     Container container;
-    WorldGridPanel gridPanel;
+    WorldGridPanel worldGridPanel;
     JPanel buttonsPanel;
 
+    //Deklaracja przycisków
     private JButton startButton;
     private JButton pauseButton;
     private JButton stopButton;
 
-    private final int rowsNumber = 20;
-    private final int columnsNumber = 30;
+    //Deklaracja domyślnych wartości odpowiadających za rozmiary planszy.
+    private int rowsNumber = 20;
+    private int columnsNumber = 30;
     private final int preferredCellLabelSize = 10;
 
     Presenter presenter;
-
-    private boolean started;
-    private boolean stopped;
 
 
     public WireWorldViewGUI() {
 
         super("WireWorld");
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.prepareGUI();
+
+    }
+
+    /**
+     * Konstruktor, który ustwia rozmiar planszy (gridu) wg przekazanych wartości
+     * Uruchamia metodę prepareGUI, która deklaruje obiekty graficzne okna
+     * @param columnsNumber Liczba kolumn (rozmiar x)
+     * @param rowsNumber Liczba wierszy (rozmiar y)
+     */
+    public WireWorldViewGUI(int columnsNumber, int rowsNumber) {
+
+        super("WireWorld");
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.columnsNumber = columnsNumber;
+        this.rowsNumber = rowsNumber;
         this.prepareGUI();
 
     }
@@ -121,10 +140,10 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
         //container.setLayout(new BorderLayout(BorderLayout.CENTER)));
 
         //GRID PANEL
-        gridPanel = new WorldGridPanel(rowsNumber, columnsNumber, preferredCellLabelSize);
-        gridPanel.setBounds(0, 0, 1000, 600);
+        worldGridPanel = new WorldGridPanel(rowsNumber, columnsNumber, preferredCellLabelSize);
+        worldGridPanel.setBounds(0, 0, 1000, 600);
 
-        container.add(gridPanel, BorderLayout.CENTER);
+        container.add(worldGridPanel, BorderLayout.CENTER);
 
         //BUTTONS PANEL
         buttonsPanel = new JPanel();
@@ -154,57 +173,58 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
     public void open() {
         this.setVisible(true);
     }
-
     public void close() {
         this.dispose();
     }
-
     public void setPresenter(Presenter presenter) {
         this.presenter = presenter;
     }
 
-    public Presenter getPresenter() {
-        return this.presenter;
-    }
 
     //Uaktualnienie koloru komórki na gridzie
-    public void updateCellLabelColor(int x, int y, Cell.State state) {
-        gridPanel.getCellLabel(x, y).updateCellColor(state);
+    public void updateCellsColor(Grid grid){
+
+        Iterator it = grid.getHashMap().entrySet().iterator();
+        while(it.hasNext()) {
+            Map.Entry entry = (Map.Entry) it.next();
+            Coordinate coordinate = (Coordinate) entry.getKey();
+            Cell cell = (Cell) entry.getValue();
+
+            worldGridPanel.getCellLabel((int)coordinate.getY(),(int)coordinate.getX()).updateCellColor(cell.getState());
+
+        }
     }
 
-    public boolean isStarted() {
-        return started;
+    public void showAbout(){
+        JOptionPane.showMessageDialog(this,"WireWorld 1.0 \n\nAutorzy: \nEryk Banaś \nMateusz Bocheński");
     }
 
-    public void setStarted(boolean running) {
-        this.started = running;
+    public void showHelp(){
+        JOptionPane.showMessageDialog(this,"WireWorld\n\n" +
+                "Aplikacja służy do przedstawienia symulacji automatu komórkowego WireWorld.\n\n" +
+                "- W celu rozpoczęcia symulacji wybierz przycisk \"Start\"\n" +
+                "- Aby zatrzymać symulację wybierz \"Pauza\"\n" +
+                "- Symulacja zostanie zakończona po wybraniu przycisku \"Stop\"" +
+                " lub po określonej w ustawieniach liczbie generacji\n" +
+                "\nAplikacja umożliwia wczytywanie oraz zapisytwanie generacji w pliku JSON\n" +
+                "Użytkownik może zmienić rozmiary planszy, szybkość generacji oraz liczbę generacji" +
+                " wybieracjąc z menu pozycję Plik>Opcje");
     }
 
-    public boolean isStopped() {
-        return stopped;
-    }
-
-    public void setStopped(boolean stopped) {
-        this.stopped = stopped;
-    }
 
     //Obsługa zdarzeń
     public void actionPerformed(ActionEvent actionEvent) {
         Object source = actionEvent.getSource();
 
         if (this.startButton.equals(source) || this.startMenuItem.equals(source)) {
-            this.started = true;
             presenter.animationStarted();
         } else if (this.pauseButton.equals(source) || this.pauseMenuItem.equals(source)) {
-            this.started = false;
             presenter.animationPaused();
         } else if (this.stopButton.equals(source) || this.stopMenuItem.equals(source)) {
-            this.stopped = true;
             presenter.animationStopped();
         } else if (this.openGenerationMenuItem.equals(source)){
             presenter.clickedOpenGeneration();
         } else if (this.saveGenerationMenuItem.equals(source)){
-            System.out.println("Open");
             presenter.clickedSaveGeneration();
         } else if (this.optionsMenuItem.equals(source)){
             presenter.clickedShowOptionsWindow();

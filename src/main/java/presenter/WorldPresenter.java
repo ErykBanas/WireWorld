@@ -1,23 +1,66 @@
 package presenter;
 
+import model.World;
 import view.OptionsView;
 import view.WireWorldView;
 
 public class WorldPresenter implements Presenter{
 
+    private World wireWorld;
     private OptionsView optionsView;
     private WireWorldView wireWorldView;
+    private SimulationThread simulationThread;
+
+
+    public WorldPresenter() {
+
+    }
+
+    public void setWorld(World world) {
+        this.wireWorld = world;
+    }
+    public void setOptionsView(OptionsView optionsView) {
+        this.optionsView = optionsView;
+    }
+    public void setWireWorldView(WireWorldView wireWorldView) {
+        this.wireWorldView = wireWorldView;
+    }
+    public void setSimulationThread(SimulationThread simulationThread) {
+        this.simulationThread = simulationThread;
+    }
+
+    public World getWorld() {
+        return wireWorld;
+    }
+
+    public WireWorldView getWireWorldView() {
+        return wireWorldView;
+    }
+
+    public SimulationThread getSimulationThread() {
+        return simulationThread;
+    }
 
     public void animationStarted() {
-        throw new UnsupportedOperationException("Jeszcze nie zaimplementowane");
+        simulationThread.resumeThread();
     }
 
     public void animationPaused() {
-        throw new UnsupportedOperationException("Jeszcze nie zaimplementowane");
+        try {
+            simulationThread.pauseThread();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void animationStopped() {
-        throw new UnsupportedOperationException("Jeszcze nie zaimplementowane");
+        try {
+            simulationThread.pauseThread();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        wireWorld.clearGrid();
+        wireWorldView.updateCellsColor(wireWorld.getGrid());
     }
 
     public void clickedOpenGeneration() {
@@ -33,14 +76,16 @@ public class WorldPresenter implements Presenter{
     }
 
     public void clickedExitApplication() {
-        throw new UnsupportedOperationException("Jeszcze nie zaimplementowane");
+        System.exit(0);
     }
 
     public void clickedShowHelpWindow() {
-        throw new UnsupportedOperationException("Jeszcze nie zaimplementowane");
+        wireWorldView.showHelp();
     }
 
     public void clickedShowAboutWindow() {
-        throw new UnsupportedOperationException("Jeszcze nie zaimplementowane");
+        wireWorldView.showAbout();
     }
+
+
 }
