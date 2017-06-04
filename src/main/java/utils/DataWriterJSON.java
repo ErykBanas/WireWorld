@@ -67,7 +67,7 @@ public class DataWriterJSON implements DataWriter{
             state.put("ElectronTail", stateTail);
             //it.remove();
 
-            fileWriter = new BufferedWriter(new FileWriter("/Users/hvx/IdeaProjects/jimp2-proj2/nowy.json"));
+            fileWriter = new BufferedWriter(new FileWriter("nowy.json"));
             fileWriter.write(state.toString());
             //System.out.println("\nJSON Object: " + state);
         } catch (IOException e) {
