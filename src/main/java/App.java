@@ -21,7 +21,7 @@ public class App {
         Grid grid = new Grid();
         World world = new WireWorld(grid);
         Presenter presenter = new WorldPresenter();
-        WireWorldView view = new WireWorldViewGUI(configReader.getGridSizeX(),configReader.getGridSizeY());
+        WireWorldView view = new WireWorldViewGUI(configReader.getGridSizeX(),configReader.getGridSizeY(), 10);
         SimulationThread simulationThread = new SimulationThread();
 
         simulationThread.setPresenter(presenter);

@@ -1,26 +1,32 @@
 package presenter;
 
+import core.Grid;
+import model.WireWorld;
 import model.World;
-import view.OptionsView;
-import view.WireWorldView;
+import utils.*;
+import view.*;
+
+import java.io.File;
+import java.io.IOException;
 
 public class WorldPresenter implements Presenter{
 
     private World wireWorld;
-    private OptionsView optionsView;
     private WireWorldView wireWorldView;
     private SimulationThread simulationThread;
+    private int numberOfGenerations;
+    private int numberOfCellsHorizontally;
+    private int numberOfCellsVertically;
+    private int preferredCellLabelSize;
+    private int animationSpeed;
+    private Grid grid;
 
-
-    public WorldPresenter() {
+    public WorldPresenter() { //Kwestia poprawy momentu przekazywania tego grid-a!
 
     }
 
     public void setWorld(World world) {
         this.wireWorld = world;
-    }
-    public void setOptionsView(OptionsView optionsView) {
-        this.optionsView = optionsView;
     }
     public void setWireWorldView(WireWorldView wireWorldView) {
         this.wireWorldView = wireWorldView;
@@ -28,6 +34,30 @@ public class WorldPresenter implements Presenter{
     public void setSimulationThread(SimulationThread simulationThread) {
         this.simulationThread = simulationThread;
     }
+    public void setWWVGAWPParameters(int numberOfGenerations, int numberOfCellsHorizontally,
+                                     int numberOfCellsVertically, int preferredCellLabelSize, int animationSpeed){
+        this.numberOfGenerations = numberOfGenerations;
+        this.numberOfCellsHorizontally = numberOfCellsHorizontally;
+        this.numberOfCellsVertically = numberOfCellsVertically;
+        this.preferredCellLabelSize = preferredCellLabelSize;
+        this.animationSpeed = animationSpeed;
+        DataReader dataReader = DataReaderJSON.getInstance();
+        grid = dataReader.read(new File("exampleInputData.json"));
+        World world = new WireWorld(grid);
+        WireWorldView view = new WireWorldViewGUI(this.numberOfCellsVertically, this.numberOfCellsHorizontally, this.preferredCellLabelSize);
+        SimulationThread simulationThread = new SimulationThread();
+//Spr. w którym dokł miejscu uruchamia się ten wątek, jak działa i ewentualnie jak w nim poniższe metody uruchomic -
+//choc pamietac, że to z AppTest-a wczesniej działało wywołanie NAWET, jak ten wątek juz teoretycznie ruszył!
+        simulationThread.setNumberOfGenerations(this.numberOfGenerations);
+        simulationThread.setAnimationSpeed(this.animationSpeed);
+        simulationThread.setPresenter(this);
+        view.setPresenter(this);
+        setSimulationThread(simulationThread);
+        setWireWorldView(view);
+        setWorld(world);
+        view.updateCellsColor(grid);
+        view.open();
+    }//I tu trzeba poprzypisywac do odpowiednich klas odpowiednie parametry
 
     public World getWorld() {
         return wireWorld;
@@ -64,15 +94,37 @@ public class WorldPresenter implements Presenter{
     }
 
     public void clickedOpenGeneration() {
-        throw new UnsupportedOperationException("Jeszcze nie zaimplementowane");
+        wireWorldView.close();
+        DataReader dataReader = DataReaderJSON.getInstance();
+        grid = dataReader.read(new File("exampleInputData2.json"));
+        ConfigReader configReader = ConfigReaderJSON.getInstance();
+        configReader.read(new File("config.json"));
+        World world = new WireWorld(grid);
+        WireWorldView view = new WireWorldViewGUI(configReader.getGridSizeX(),configReader.getGridSizeY(), 10);
+        SimulationThread simulationThread = new SimulationThread();
+        simulationThread.setPresenter(this);
+        view.setPresenter(this);
+        setSimulationThread(simulationThread);
+        setWireWorldView(view);
+        setWorld(world);
+        view.updateCellsColor(grid);
+        view.open();
     }
 
     public void clickedSaveGeneration() {
-        throw new UnsupportedOperationException("Jeszcze nie zaimplementowane");
+        try {
+            DataWriter dataWriter = new DataWriterJSON();
+            dataWriter.write(this.getWorld().getGrid(), new File("nowy.json"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickedShowOptionsWindow() {
-        throw new UnsupportedOperationException("Jeszcze nie zaimplementowane");
+        wireWorldView.close();
+        OptionsView optionsView = new OptionsViewGUI();
+        optionsView.setPresenter(this);
+        optionsView.open();
     }
 
     public void clickedExitApplication() {
@@ -86,6 +138,4 @@ public class WorldPresenter implements Presenter{
     public void clickedShowAboutWindow() {
         wireWorldView.showAbout();
     }
-
-
 }

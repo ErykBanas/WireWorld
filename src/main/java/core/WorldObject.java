@@ -3,7 +3,7 @@ package core;
 import java.util.ArrayList;
 
 /**
- * Klasa abstrakcyjna dla obiektów takich jak bramki
+ * Klasa abstrakcyjna dla obiektów takich jak bramki - Jak ona tu będzie zaimplementowana?
  */
 public abstract class WorldObject {
 

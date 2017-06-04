@@ -29,23 +29,19 @@
       "y": 1
     }
   ],
-  "WireLine1": [
+  "WireLine": [
     {
       "startX": 0,
       "startY": 1,
       "endX": 6,
       "endY": 1
-    }
-  ],
-  "WireLine2": [
+    },
     {
       "startX": 14,
       "startY": 4,
       "endX": 17,
       "endY": 4
-    }
-  ],
-  "WireLine3": [
+    },
     {
       "startX": 0,
       "startY": 7,

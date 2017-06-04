@@ -19,7 +19,7 @@ public interface Presenter{
      * Ustawia widok okna opcji
      * @param optionsView Widok okna opcji
      */
-    void setOptionsView(OptionsView optionsView);
+//    void setOptionsView(OptionsView optionsView);
 
     /**
      * Ustawia obiekt modelu
@@ -80,6 +80,6 @@ public interface Presenter{
 
     void setSimulationThread(SimulationThread simulationThread);
 
-
-
+    void setWWVGAWPParameters(int numberOfGenerations, int numberOfCellsHorizontally,
+                              int numberOfCellsVertically, int preferredCellLabelSize, int animationSpeed);
 }

@@ -6,7 +6,9 @@ import java.awt.*;
 
 public class WorldGridPanel extends JPanel {
 
-    private WorldCellLabel cellLabels [][];
+    private WorldCellLabel cellLabels [][]; //To Też jest jedyne miejsce, w którym ta klasa jest wykorzystywana - ogólnie jest Frame, w tym jest
+    // sobie Panel, a w tych panelach Label-e. Do przechowywania danych służą klasy związane z model-em i grid-em, natomiast my tu chcemy przechowywać
+    //KOLORY (czyli tylko reprezentację graficzną) i do TEGO właśnie jest wykorzystywana klasa WorldCellLabel!
 
     public WorldGridPanel(int rows, int columns, int preferredLabelSize){
 

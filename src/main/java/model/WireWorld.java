@@ -64,7 +64,7 @@ public class WireWorld implements World{
 
             cellStateChanged = false;
             oldState = cell.getState();
-            newState = cell.getState();
+            newState = cell.getState(); //To przez ewent. niezainicjalizow. podejrzenie.
 
             if (oldState == Cell.State.ELECTRONHEAD) {
                 newState = Cell.State.ELECTRONTAIL;
@@ -84,7 +84,7 @@ public class WireWorld implements World{
             }
 
             newGrid.insertCell(coordinate, cell);
-            it.remove();
+            it.remove(); //do zwaln. pamieci.
         }
         this.grid = newGrid;
 

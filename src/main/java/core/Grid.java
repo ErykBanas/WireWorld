@@ -10,6 +10,7 @@ public class Grid {
 
     /**
      * Obiekt typu HashMap. Wiąże współrzędną komórki {@link Coordinate} ze stanem komórki {@link Cell}. Zawiera komórki wczytane do aplikacji
+     * Wczytane na razie poprzez "insertNewCell()" W ogólności wiąże wartość z kluczem, a my tutaj takie wybraliśmy
      */
     private HashMap <Coordinate,Cell> hashMap;
 
@@ -59,6 +60,7 @@ public class Grid {
      * Wstawia komórkę do gridu na podstawie istniejących już obiektów Coordinate i Cell
      * @param coordinate Obiekt klasy Coordinate - współrzędne x i y
      * @param cell Obiekt klasy cell - komórka
+     * Metoda napisana specjalnie dla klasy WireWorld.java do łatwej obsługi HashMap-y!
      */
     public void insertCell(Coordinate coordinate, Cell cell){
         this.hashMap.put(coordinate, cell);

@@ -32,7 +32,7 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
     private JMenuItem aboutMenuItem;
 
     Container container;
-    WorldGridPanel worldGridPanel;
+    WorldGridPanel worldGridPanel; // To jest jedyne miejsce, w którym ta klasa będzie użyta (także można powiedzieć, że jest tu zawarta)
     JPanel buttonsPanel;
 
     //Deklaracja przycisków
@@ -40,10 +40,9 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
     private JButton pauseButton;
     private JButton stopButton;
 
-    //Deklaracja domyślnych wartości odpowiadających za rozmiary planszy.
-    private int rowsNumber = 20;
-    private int columnsNumber = 30;
-    private final int preferredCellLabelSize = 10;
+    private int rowsNumber;
+    private int columnsNumber;
+    private int preferredCellLabelSize;
 
     Presenter presenter;
 
@@ -62,14 +61,13 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
      * @param columnsNumber Liczba kolumn (rozmiar x)
      * @param rowsNumber Liczba wierszy (rozmiar y)
      */
-    public WireWorldViewGUI(int columnsNumber, int rowsNumber) {
-
+    public WireWorldViewGUI(int columnsNumber, int rowsNumber, int preferredCellLabelSize) {
         super("WireWorld");
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.columnsNumber = columnsNumber;
         this.rowsNumber = rowsNumber;
+        this.preferredCellLabelSize = preferredCellLabelSize;
         this.prepareGUI();
-
     }
 
     //Przygotowanie okna: umieszczenie wszystkich elementów takich jak menu, przyciski, grid
@@ -139,7 +137,7 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
         container = getContentPane();
         //container.setLayout(new BorderLayout(BorderLayout.CENTER)));
 
-        //GRID PANEL
+        //GRID PANEL - są właśnie oddzielne Panel-e do Grid-a, jak i potem do przyciskow!
         worldGridPanel = new WorldGridPanel(rowsNumber, columnsNumber, preferredCellLabelSize);
         worldGridPanel.setBounds(0, 0, 1000, 600);
 
@@ -175,17 +173,20 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
     }
     public void close() {
         this.dispose();
-    }
+    }//Zamykanie danego okienka.
     public void setPresenter(Presenter presenter) {
         this.presenter = presenter;
-    }
+    } //Żeby było wiadomo jaki to jest
+    // presenter-a i można go potem wywołać.
 
+    // Do tej metody nie do końca jasne są: "cellLabel[x][y]" z WorldCellLabel, konkretnie przy tym getCellLabel
+    // - jak to tam działa :P
 
-    //Uaktualnienie koloru komórki na gridzie
+    //Uaktualnienie koloru komórki na gridzie - w sumie, to nie muszę tego do końca rozumieć, ważne, żeby to tu działało :D
     public void updateCellsColor(Grid grid){
-
+//Grid przechowuje haszmapę z Coordinates, jak i z zawartością komórki!
         Iterator it = grid.getHashMap().entrySet().iterator();
-        while(it.hasNext()) {
+        while(it.hasNext()) { //Dopóki metoda .next() zwróciłaby jakiś kolejny element, a nie throw wyjątek!
             Map.Entry entry = (Map.Entry) it.next();
             Coordinate coordinate = (Coordinate) entry.getKey();
             Cell cell = (Cell) entry.getValue();
@@ -211,13 +212,18 @@ public class WireWorldViewGUI extends JFrame implements WireWorldView, ActionLis
                 " wybieracjąc z menu pozycję Plik>Opcje");
     }
 
-
+//actionPerformed() jest metoda wewnętrzną, ale MUSI byc zdefiniowana by nie wywalilo przy żadnym GUI błędu!
+    //Najlepiej, jak tylko się da, to analizowac w stronę - OD działającego programu, DO kodu (bo wtedy np. widac
+    //jakiego tam sposobu interakcji z uzytkownikiem sobie szukac!
     //Obsługa zdarzeń
-    public void actionPerformed(ActionEvent actionEvent) {
-        Object source = actionEvent.getSource();
+    public void actionPerformed(ActionEvent actionEvent) { //Action Listener może przechwycać obiekt zdarzenia, natomia
+                                                           //natomiast ActionListener to interfejs z różnymi metodami
+        Object source = actionEvent.getSource(); //Object na compareTo sprawdzająca, czy to są te same obiekty, czy
+                                                 //czy start button to ten obiekt wywołujący zdarzenie, czy inne
 
         if (this.startButton.equals(source) || this.startMenuItem.equals(source)) {
-            presenter.animationStarted();
+            presenter.animationStarted(); //i to idzie do zarządcy, co się stało, przekazujemy presenter-owi, że coś się
+                                            // się działo i co ma z tym zrobić.
         } else if (this.pauseButton.equals(source) || this.pauseMenuItem.equals(source)) {
             presenter.animationPaused();
         } else if (this.stopButton.equals(source) || this.stopMenuItem.equals(source)) {
