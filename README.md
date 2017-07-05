@@ -1,1 +1,1 @@
-# WireWorld
+WireWorld implementation project

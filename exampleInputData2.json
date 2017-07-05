@@ -1,0 +1,76 @@
+{
+  "WireCell": [
+    {
+      "x": 7,
+      "y": 0
+    },
+    {
+      "x": 7,
+      "y": 2
+    },
+    {
+      "x": 8,
+      "y": 0
+    },
+    {
+      "x": 8,
+      "y": 2
+    },
+    {
+      "x": 9,
+      "y": 1
+    },
+    {
+      "x": 10,
+      "y": 1
+    },
+    {
+      "x": 11,
+      "y": 1
+    }
+  ],
+  "WireLine": [
+    {
+      "startX": 0,
+      "startY": 1,
+      "endX": 6,
+      "endY": 1
+    },
+    {
+      "startX": 14,
+      "startY": 4,
+      "endX": 17,
+      "endY": 4
+    },
+    {
+      "startX": 0,
+      "startY": 7,
+      "endX": 11,
+      "endY": 7
+    }
+  ],
+  "OrGate": [
+    {
+      "startX": 11,
+      "startY": 3
+    }
+  ],
+  "XORGate": [
+    {
+      "startX": 11,
+      "startY": 3
+    }
+  ],
+  "ElectronHead": [
+    {
+      "x": 16,
+      "y": 4
+    }
+  ],
+  "ElectronTail": [
+    {
+      "x": 17,
+      "y": 4
+    }
+  ]
+}
